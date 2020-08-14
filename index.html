@@ -9,8 +9,14 @@
       margin: 2%;
       border: 1px solid black;
       border-radius: 90%;
-      padding: 1%;
       background-color: red;
+    }
+
+    #enemy {
+      position: fixed;
+      border: 1px solid red;
+      border-radius: 90%;
+      background-color: yellow;
     }
     #finish {
       margin: 1%;
@@ -21,6 +27,7 @@
 
   <body>
     <div id="dot"></div>
+    <div id="enemy"></div>
     <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" id='finish'>
     </img>
     <script>
@@ -28,53 +35,113 @@
 
       var dot = document.getElementById('dot');
     /*-----------------------------
-            directions
+            movements
     -------------------------------*/
       var x = 50;
       var y = 50;
-      var direction = {};
-      var onkeydown = onkeyup = function(e) {
-        direction[e.keyCode] = e.type === 'keydown';
-        var up = 87;
-        var down = 83;
-        var right = 68;
-        var left = 65;
-        var posTop = dot.style.top;
-        // dot.textContent = '[' + x + ', ' + y + ']';
-
-
-
-        if ((x < 7 && y < 20)) {
-          dot.style.left = (x += 1) + '%';
-          dot.style.top = (y += 1) + '%';
-        }
-
-        if (direction[up] && direction[right]) {
-          dot.style.top = (y -= 1) + '%';
-          dot.style.left = (x += 1) + '%';
-        } else if (direction[up] && direction[left]) {
-          dot.style.top = (y -= 1) + '%';
-          dot.style.left = (x -= 1) + '%';
-        } else if (direction[down] && direction[right]) {
-          dot.style.top = (y += 1) + '%';
-          dot.style.left = (x += 1) + '%';
-        } else if (direction[down] && direction[left]) {
-          dot.style.top = (y += 1) + '%';
-          dot.style.left = (x -= 1) + '%';
-        } else if (direction[up]) {
-          dot.style.top = (y -= 1) + '%';
-        } else if (direction[down]) {
-          dot.style.top = (y += 1) + '%';
-        } else if (direction[left]) {
-          dot.style.left = (x -= 1) + '%';
-        } else if (direction[right]) {
-          dot.style.left = (x += 1) + '%';
-        }
+      var pad = 1.00;
+    /*-----------------------------
+             player object
+    ------------------------------*/
+      var player = {
+        location: function(y, x) {dot.style.top = y + '%'; dot.style.left = x + '%'; follower.location(x, y)},
+        move: function(ySpeed, xSpeed) {
+          x += xSpeed;
+          y += ySpeed;
+          player.location(y, x);
+        },
+        size: function(shrink) {dot.style.padding = (pad += shrink) + '%'},
       };
 
+    /*-----------------------------
+               follower
+    ------------------------------*/
+
+    var enemy = document.getElementById('enemy');
+    var enemyX = 75;
+    var enemyY = 75;
+    enemy.style.padding = pad + '%';
+    enemy.style.left = enemyX + '%';
+    enemy.style.top = enemyY + '%';
+
+    var follow = function() {
+      var distance, distX, distY;
+      if (enemyY > y) {
+        enemy.style.top = (enemyY -= .1) + '%';
+        distY = enemyY - y;
+      } else {
+        enemy.style.top = (enemyY += .1) + '%';
+        distY = y - enemyY;
+      }
+      if (enemyX > x) {
+        enemy.style.left = (enemyX -= .1) + '%';
+        distX = enemyX - x;
+      } else {
+        enemy.style.left = (enemyX += .1) + '%';
+        distX = x - enemyX;
+      }
+      distance = distX + distY
+      enemy.textContent = [Math.floor(enemyY), Math.floor(y)];
+      
+      if (distance < 1) {
+        player.size(-.01)
+      }
+      window.requestAnimationFrame(follow);
+    }
+
+    /*-----------------------------
+              boundaries
+    ------------------------------*/
+
+    // if ((x < 7 && y < 20)) {
+        //   player.move(speed, speed)
+        //   player.size(-.010)
+        // }
+    /*-----------------------------
+              movements
+    ------------------------------*/
+      var direction = {};
+      const up = 87;
+      const down = 83;
+      const right = 68;
+      const left = 65;
+      const speed = 1.5;
+
+      window.onkeydown = window.onkeyup = function(e) {
+        direction[e.keyCode] = e.type === 'keydown';
+        direct(direction[e.keyCode], direction[e.keyCode])
+      }
+
+
+      var direct = function() {
+        if (direction[up] && direction[right]) {
+          player.move(-speed, speed)
+        } else if (direction[up] && direction[left]) {
+          player.move(-speed, -speed);
+        } else if (direction[down] && direction[right]) {
+          player.move(speed, speed);
+        } else if (direction[down] && direction[left]) {
+          player.move(speed, -speed);
+        } else if (direction[up]) {
+          player.move(-speed, 0);
+        } else if (direction[down]) {
+          player.move(speed, 0);
+        } else if (direction[left]) {
+          player.move(0, -speed);
+        } else if (direction[right]) {
+          player.move(0, speed);
+        }
+        window.requestAnimationFrame(direct)
+      }
+      window.requestAnimationFrame(direct)
+    /*-----------------------------------
+              starting / refresh
+    ------------------------------------*/
       window.onload = function() {
       dot.style.top = y + '%';
       dot.style.left = x + '%';
+      dot.style.padding = pad + '%';
+      follow()
       }
     </script>
 
