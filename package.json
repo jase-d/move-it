@@ -1,0 +1,11 @@
+{
+  "name": "dot",
+  "version": "1.0.0",
+  "description": "basic move-dot game",
+  "main": "index.js",
+  "scripts": {
+    "test": "testDot"
+  },
+  "author": "Jase DiNardo",
+  "license": "ISC"
+}
