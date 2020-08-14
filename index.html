@@ -6,7 +6,7 @@
   <style>
     #dot {
       position: fixed;
-      margin: 2%;
+      margin: 2px;
       border: 1px solid black;
       border-radius: 90%;
       background-color: red;
@@ -19,7 +19,7 @@
       background-color: yellow;
     }
     #finish {
-      margin: 1%;
+      margin: 1px;
       height: 15%;
       width: 7%;
     }
@@ -44,7 +44,7 @@
              player object
     ------------------------------*/
       var player = {
-        location: function(y, x) {dot.style.top = y + '%'; dot.style.left = x + '%'},
+        location: function(y, x) {dot.style.top = y + 'px'; dot.style.left = x + 'px'},
         move: function(ySpeed, xSpeed) {
           x += xSpeed;
           y += ySpeed;
@@ -61,27 +61,26 @@
     var enemyX = 75;
     var enemyY = 75;
     enemy.style.padding = pad + '%';
-    enemy.style.left = enemyX + '%';
-    enemy.style.top = enemyY + '%';
+    enemy.style.left = enemyX + 'px';
+    enemy.style.top = enemyY + 'px';
 
     var follow = function() {
       var distance, distX, distY;
       if (enemyY > y) {
-        enemy.style.top = (enemyY -= .1) + '%';
+        enemy.style.top = (enemyY -= .1) + 'px';
         distY = enemyY - y;
       } else {
-        enemy.style.top = (enemyY += .1) + '%';
+        enemy.style.top = (enemyY += .1) + 'px';
         distY = y - enemyY;
       }
       if (enemyX > x) {
-        enemy.style.left = (enemyX -= .1) + '%';
+        enemy.style.left = (enemyX -= .1) + 'px';
         distX = enemyX - x;
       } else {
-        enemy.style.left = (enemyX += .1) + '%';
+        enemy.style.left = (enemyX += .1) + 'px';
         distX = x - enemyX;
       }
       distance = distX + distY
-      enemy.textContent = [Math.floor(enemyY), Math.floor(y)];
 
       if (distance < 1) {
         player.size(-.01)
@@ -105,7 +104,7 @@
       const down = 83;
       const right = 68;
       const left = 65;
-      const speed = .01;
+      const speed = .05;
 
       window.onkeydown = window.onkeyup = function(e) {
         direction[e.keyCode] = e.type === 'keydown';
@@ -130,14 +129,14 @@
         } else if (direction[right]) {
           player.move(0, speed);
         }
-        requestAnimationFrame(direct)
+        window.requestAnimationFrame(direct)
       }
     /*-----------------------------------
               starting / refresh
     ------------------------------------*/
       window.onload = function() {
-      dot.style.top = y + '%';
-      dot.style.left = x + '%';
+      dot.style.top = y + 'px';
+      dot.style.left = x + 'px';
       dot.style.padding = pad + '%';
       follow()
       }
