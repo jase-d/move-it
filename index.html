@@ -44,7 +44,7 @@
              player object
     ------------------------------*/
       var player = {
-        location: function(y, x) {dot.style.top = y + '%'; dot.style.left = x + '%'; follower.location(x, y)},
+        location: function(y, x) {dot.style.top = y + '%'; dot.style.left = x + '%'},
         move: function(ySpeed, xSpeed) {
           x += xSpeed;
           y += ySpeed;
@@ -82,7 +82,7 @@
       }
       distance = distX + distY
       enemy.textContent = [Math.floor(enemyY), Math.floor(y)];
-      
+
       if (distance < 1) {
         player.size(-.01)
       }
@@ -105,13 +105,12 @@
       const down = 83;
       const right = 68;
       const left = 65;
-      const speed = 1.5;
+      const speed = .01;
 
       window.onkeydown = window.onkeyup = function(e) {
         direction[e.keyCode] = e.type === 'keydown';
         direct(direction[e.keyCode], direction[e.keyCode])
       }
-
 
       var direct = function() {
         if (direction[up] && direction[right]) {
@@ -131,9 +130,8 @@
         } else if (direction[right]) {
           player.move(0, speed);
         }
-        window.requestAnimationFrame(direct)
+        requestAnimationFrame(direct)
       }
-      window.requestAnimationFrame(direct)
     /*-----------------------------------
               starting / refresh
     ------------------------------------*/
