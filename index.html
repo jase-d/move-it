@@ -5,16 +5,24 @@
   </head>
   <style>
     #dot {
-      position: absolute;
+      position: fixed;
+      margin: 2%;
       border: 1px solid black;
       border-radius: 90%;
       padding: 1%;
       background-color: red;
     }
+    #finish {
+      margin: 1%;
+      height: 15%;
+      width: 7%;
+    }
   </style>
 
   <body>
     <div id="dot"></div>
+    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" id='finish'>
+    </img>
     <script>
 
 
@@ -31,10 +39,16 @@
         var down = 83;
         var right = 68;
         var left = 65;
-        
-        if (direction[e.keyCode] === false) {
-          delete direction[e.keyCode];
+        var posTop = dot.style.top;
+        // dot.textContent = '[' + x + ', ' + y + ']';
+
+
+
+        if ((x < 7 && y < 20)) {
+          dot.style.left = (x += 1) + '%';
+          dot.style.top = (y += 1) + '%';
         }
+
         if (direction[up] && direction[right]) {
           dot.style.top = (y -= 1) + '%';
           dot.style.left = (x += 1) + '%';
@@ -49,16 +63,12 @@
           dot.style.left = (x -= 1) + '%';
         } else if (direction[up]) {
           dot.style.top = (y -= 1) + '%';
-          dot.style.borderColor = 'yellow';
         } else if (direction[down]) {
           dot.style.top = (y += 1) + '%';
-          dot.style.borderColor = 'yellow';
         } else if (direction[left]) {
           dot.style.left = (x -= 1) + '%';
-          dot.style.borderColor = 'yellow';
         } else if (direction[right]) {
           dot.style.left = (x += 1) + '%';
-          dot.style.borderColor = 'yellow';
         }
       };
 
