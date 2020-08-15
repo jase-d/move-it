@@ -14,14 +14,54 @@
 
     #enemy {
       position: fixed;
-      border: 1px solid red;
+      border: 1px solid #1bff00;
       border-radius: 90%;
-      background-color: yellow;
+      background-image: radial-gradient(#524b4b, #63f11be6);
     }
     #finish {
       margin: 1px;
       height: 15%;
       width: 7%;
+    }
+    section {
+      margin: auto;
+      border: 1px solid black;
+      height: 40%;
+      width: 40%;
+    }
+    .dirt {
+      background-color: rgb(128, 89, 53);
+      margin: 0 auto;
+
+      padding: 40%
+
+    }
+
+    .g {
+      margin: auto;
+      position: fixed;
+      top: 395px;
+      left: 705px;
+      padding: .6% .7% .7% .7%;
+      width: .4%;
+      background-color: gainsboro;
+      border: .5px solid black;
+      border-top-left-radius: 90%;
+      border-top-right-radius: 90%;
+      font-size: 1%;
+      font-variant: small-caps;
+    }
+
+    #grave {
+      margin: auto;
+      padding: 8% 5% 10% 5%;
+      width: 12%;
+      background-color: gainsboro;
+      border: .5px solid black;
+      border-top-left-radius: 90%;
+      border-top-right-radius: 90%;
+      font-size: 1%;
+      font-variant: small-caps;
     }
   </style>
 
@@ -30,117 +70,14 @@
     <div id="enemy"></div>
     <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" id='finish'>
     </img>
-    <script>
+    <!-- <div class="g">r.i.p.</div> -->
 
-
-      var dot = document.getElementById('dot');
-    /*-----------------------------
-            movements
-    -------------------------------*/
-      var x = 50;
-      var y = 50;
-      var pad = 1.00;
-    /*-----------------------------
-             player object
-    ------------------------------*/
-      var player = {
-        location: function(y, x) {dot.style.top = y + 'px'; dot.style.left = x + 'px'},
-        move: function(ySpeed, xSpeed) {
-          x += xSpeed;
-          y += ySpeed;
-          player.location(y, x);
-        },
-        size: function(shrink) {dot.style.padding = (pad += shrink) + '%'},
-      };
-
-    /*-----------------------------
-               follower
-    ------------------------------*/
-
-    var enemy = document.getElementById('enemy');
-    var enemyX = 75;
-    var enemyY = 75;
-    enemy.style.padding = pad + '%';
-    enemy.style.left = enemyX + 'px';
-    enemy.style.top = enemyY + 'px';
-
-    var follow = function() {
-      var distance, distX, distY;
-      if (enemyY > y) {
-        enemy.style.top = (enemyY -= .1) + 'px';
-        distY = enemyY - y;
-      } else {
-        enemy.style.top = (enemyY += .1) + 'px';
-        distY = y - enemyY;
-      }
-      if (enemyX > x) {
-        enemy.style.left = (enemyX -= .1) + 'px';
-        distX = enemyX - x;
-      } else {
-        enemy.style.left = (enemyX += .1) + 'px';
-        distX = x - enemyX;
-      }
-      distance = distX + distY
-
-      if (distance < 1) {
-        player.size(-.01)
-      }
-      window.requestAnimationFrame(follow);
-    }
-
-    /*-----------------------------
-              boundaries
-    ------------------------------*/
-
-    // if ((x < 7 && y < 20)) {
-        //   player.move(speed, speed)
-        //   player.size(-.010)
-        // }
-    /*-----------------------------
-              movements
-    ------------------------------*/
-      var direction = {};
-      const up = 87;
-      const down = 83;
-      const right = 68;
-      const left = 65;
-      const speed = .05;
-
-      window.onkeydown = window.onkeyup = function(e) {
-        direction[e.keyCode] = e.type === 'keydown';
-        direct(direction[e.keyCode], direction[e.keyCode])
-      }
-
-      var direct = function() {
-        if (direction[up] && direction[right]) {
-          player.move(-speed, speed)
-        } else if (direction[up] && direction[left]) {
-          player.move(-speed, -speed);
-        } else if (direction[down] && direction[right]) {
-          player.move(speed, speed);
-        } else if (direction[down] && direction[left]) {
-          player.move(speed, -speed);
-        } else if (direction[up]) {
-          player.move(-speed, 0);
-        } else if (direction[down]) {
-          player.move(speed, 0);
-        } else if (direction[left]) {
-          player.move(0, -speed);
-        } else if (direction[right]) {
-          player.move(0, speed);
-        }
-        window.requestAnimationFrame(direct)
-      }
-    /*-----------------------------------
-              starting / refresh
-    ------------------------------------*/
-      window.onload = function() {
-      dot.style.top = y + 'px';
-      dot.style.left = x + 'px';
-      dot.style.padding = pad + '%';
-      follow()
-      }
-    </script>
+    <section>
+      <div class="dirt" id="dirt">
+        <!-- <div class="grave">r.i.p.</div> -->
+      </div>
+    </section>
+    <script src="function.js"></script>
 
   </body>
 </html>
