@@ -67,19 +67,34 @@ var dot = document.getElementById('dot');
               boundaries
     ------------------------------*/
 
-    // if ((x < 7 && y < 20)) {
-        //   player.move(speed, speed)
-        //   player.size(-.010)
-        // }
+      var heightRanges = function() {
+        var heightRange = [];
+        let start1 = 176;
+        let end1 = 261;
+        let start2 = 350;
+        let end2 = 435;
+        let start3 = 515;
+        let end3 = 618;
+      }
+
+      var widthRange = function() {
+        var widthRange = [];
+        let start = 503;
+        let end = 825;
+        while (start <= end) {widthRange.push(start); start++};
+        return widthRange;
+      }
+      var bump = function(arr) {
+        
+      }
+
+
       var dirt = document.getElementById('dirt');
       var graver = function() {
-
         for (let x = 0; x < 9; x++) {
           var $grave = $('<div class="grave" >r.i.p.</div>');
-
           $grave.appendTo(dirt);
         }
-
       }
     /*-----------------------------
               movements
@@ -135,6 +150,7 @@ var dot = document.getElementById('dot');
       dot.style.top = y + 'px';
       dot.style.left = x + 'px';
       dot.style.padding = pad + '%';
+      bump();
       follow();
       graver();
       }
