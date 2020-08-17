@@ -12,6 +12,8 @@ var dot = document.getElementById('dot');
         location: function(y, x) {
           dot.style.top = y + 'px';
           dot.style.left = x + 'px';
+          let m = Math.floor;
+          dot.textContent = [m(x), m(y)];
           //bumpGrave()
         },
         move: function(ySpeed, xSpeed) {
@@ -56,6 +58,7 @@ var dot = document.getElementById('dot');
       distance = distX + distY
       if (distance < 1) {
         player.size(-.01)
+        cancelAnimationFrame(follow);
       }
       requestAnimationFrame(follow);
     }
@@ -71,27 +74,35 @@ var dot = document.getElementById('dot');
       var dirt = document.getElementById('dirt');
       var graver = function() {
 
-        var $grave = $('<div id="grave" >r.i.p.</div>');
-        
+        for (let x = 0; x < 9; x++) {
+          var $grave = $('<div class="grave" >r.i.p.</div>');
 
-        grave.appendTo(dirt);
+          $grave.appendTo(dirt);
+        }
+
       }
     /*-----------------------------
               movements
     ------------------------------*/
-      var direction = {};
+      var direction = [];
       const up = 87;
       const down = 83;
       const right = 68;
       const left = 65;
-      const speed = .05;
+
+      var starter;
 
       window.onkeydown = window.onkeyup = function(e) {
         direction[e.keyCode] = e.type === 'keydown';
-        direct()
+        requestAnimationFrame(function(timeStamp) {
+          timeStamp = 1000;
+          direct(timeStamp);
+        });
       }
-
-      var direct = function() {
+      var startTime = new Date().getTime();
+      var direct = function(timeStamp) {
+        var currentTime = new Date().getTime();
+        var speed = (240 / (currentTime - startTime)) + .005;
         if (direction[up] && direction[right]) {
           player.move(-speed, speed)
         } else if (direction[up] && direction[left]) {
@@ -109,7 +120,13 @@ var dot = document.getElementById('dot');
         } else if (direction[right]) {
           player.move(0, speed);
         }
-        window.requestAnimationFrame(direct)
+
+
+        requestAnimationFrame(function(timeStamp) {
+          timeStamp = 1000;
+          direct(timeStamp);
+        });
+        // dot.textContent = [speed, timeStamp];
       }
     /*-----------------------------------
               starting / refresh
@@ -118,5 +135,6 @@ var dot = document.getElementById('dot');
       dot.style.top = y + 'px';
       dot.style.left = x + 'px';
       dot.style.padding = pad + '%';
+      follow();
       graver();
       }
