@@ -122,7 +122,9 @@ var dot = document.getElementById('dot');
       var graver = function() {
         for (let x = 0; x < 9; x++) {
           var $grave = $('<div class="grave" >r.i.p.</div>');
+          var $shadow = $('<div class="shadow" ></div>')
           $grave.appendTo(dirt);
+          $shadow.appendTo($grave);
         }
       }
     /*-----------------------------
@@ -146,7 +148,7 @@ var dot = document.getElementById('dot');
       var startTime = new Date().getTime();
       var direct = function(timeStamp) {
         var currentTime = new Date().getTime();
-        var speed = (240 / (currentTime - startTime)) + .015;
+        var speed = (240 / (currentTime - startTime)) + .010;
         if (direction[up] && direction[right]) {
           player.move(-speed, speed)
         } else if (direction[up] && direction[left]) {
@@ -181,5 +183,5 @@ var dot = document.getElementById('dot');
       dot.style.padding = pad + '%';
 
       graver();
-      // follow();
+      follow();
       }
