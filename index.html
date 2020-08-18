@@ -5,6 +5,10 @@
   </head>
 
   <style>
+
+    body {
+      background-image: linear-gradient(270deg, green, rgb(136 87 43), rgb(136 87 43), green);
+    }
     #dot {
       position: absolute;
       margin: 2px;
@@ -19,27 +23,30 @@
       border-radius: 90%;
       background-image: radial-gradient(#524b4b, #63f11be6);
     }
-    header {
+    /* .sky {
       background-color: cornflowerblue;
-    }
-    #finish {
-      margin: 1px;
-      height: 15%;
-      width: 7%;
-    }
+      display: block;
+
+      padding: 10%;
+      width: 100%;
+    } */
+
     section {
       margin: auto;
-      border: 1px solid black;
+      /* border: 1px solid black; */
       width: 40%;
     }
     .dirt {
       background-color: rgb(128, 89, 53);
+      background-image: radial-gradient(270deg, rgb(128, 89, 53), rgb(128, 89, 53));
       margin: 0;
       padding: 25%
     }
     .grave {
       margin: 18% 4%;
-      display: inline-flex;
+      position: relative;
+      display: inline-block;
+
       padding: 8% 5% 10% 5%;
       width: 12%;
       background-color: gainsboro;
@@ -48,20 +55,16 @@
       border-top-right-radius: 90%;
       font-size: 1em;
       font-variant: small-caps;
-      box-shadow: 2px -1px 0px 0px #a9a7a7, -3px 1px 4px 0px #218420, 1px 15px 1px 15px #5dbf34;
-
+      box-shadow: 2px -1px 0px 0px #a9a7a7;
     }
   </style>
 
   <body>
     <div id="dot"></div>
     <div id="enemy"></div>
-    <!-- <header>
-      <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" id='finish'></img>
-    </header> -->
-
-
-    <!-- <div class="g">r.i.p.</div> -->
+    <header>
+      <div class="sky"></div>
+    </header>
 
     <section>
       <div class="dirt" id="dirt">
