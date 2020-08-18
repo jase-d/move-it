@@ -10,10 +10,11 @@ var dot = document.getElementById('dot');
     ------------------------------*/
       var player = {
         location: function(y, x) {
+          bump(x, y);
           dot.style.top = y + 'px';
           dot.style.left = x + 'px';
+
           let m = Math.floor;
-          dot.textContent = [m(x), m(y)];
           //bumpGrave()
         },
         move: function(ySpeed, xSpeed) {
@@ -66,26 +67,54 @@ var dot = document.getElementById('dot');
     /*-----------------------------
               boundaries
     ------------------------------*/
+      // will pass in arguments as [x,y];
+      var heightRanges = function(heights = [[176, 261], [350, 435], [515, 618]]) {
+        let heightRange = [];
 
-      var heightRanges = function() {
-        var heightRange = [];
-        let start1 = 176;
-        let end1 = 261;
-        let start2 = 350;
-        let end2 = 435;
-        let start3 = 515;
-        let end3 = 618;
+        for (let x = 0; x < heights.length; x++) {
+          let height = heights[x];
+          let range = [];
+          for (let i = height[0]; i <= height[1]; i++) {
+            range.push(i);
+          }
+          heightRange.push(range);
+        }
+        return heightRange;
       }
+      var iterateHeight = function(heights, y) {
+        for (let x = 0; x < heights.length; x++) {
+          let height = heights[x];
+          for (let i = 0; i < height.length; i++) {
+            if (height[i] === y) {
+              return true;
+            }
+          }
+        }
+        return false;
+      };
 
       var widthRange = function() {
-        var widthRange = [];
+        let widthR = [];
         let start = 503;
         let end = 825;
-        while (start <= end) {widthRange.push(start); start++};
-        return widthRange;
+        while (start <= end) {widthR.push(start); start++};
+        return widthR;
       }
-      var bump = function(arr) {
-        
+      //will pass the coordinates as (x, y)
+      var bump = function(x, y) {
+
+        let width = widthRange();
+        var heights = heightRanges();
+
+               if ((x > 565 && x < 810) && ((y > 200 && y < 250) || (y > 375 && y < 400) || (y > 540 && y < 600))) {
+          player.move(-5, 0);
+        } else if ((x > 565 && x < 810) && ((y > 250 && y < 261) || (y > 400 && y < 444) || (y > 600 && y < 618))) {
+          player.move(5, 0);
+         }else if ((x > 555 && x < 565) && ((y > 210 && y < 261) || (y > 385 && y < 444) || (y > 550 && y < 618))) {
+          player.move(0, -5);
+        } else if ((x > 555 && x < 565) && ((y > 210 && y < 261) || (y > 385 && y < 444) || (y > 550 && y < 618))) {
+          player.move(0, 5);
+        }
       }
 
 
@@ -117,7 +146,7 @@ var dot = document.getElementById('dot');
       var startTime = new Date().getTime();
       var direct = function(timeStamp) {
         var currentTime = new Date().getTime();
-        var speed = (240 / (currentTime - startTime)) + .005;
+        var speed = (240 / (currentTime - startTime)) + .015;
         if (direction[up] && direction[right]) {
           player.move(-speed, speed)
         } else if (direction[up] && direction[left]) {
@@ -150,7 +179,7 @@ var dot = document.getElementById('dot');
       dot.style.top = y + 'px';
       dot.style.left = x + 'px';
       dot.style.padding = pad + '%';
-      bump();
-      follow();
+
       graver();
+      // follow();
       }
