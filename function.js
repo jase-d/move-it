@@ -158,6 +158,7 @@ var dot = document.getElementById('dot');
         } else if (direction[down] && direction[left]) {
           player.move(speed, -speed);
         } else if (direction[up]) {
+          debugger;
           player.move(-speed, 0);
         } else if (direction[down]) {
           player.move(speed, 0);
